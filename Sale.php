@@ -9,13 +9,13 @@ class Sale
     private $file_name = NULL;
     const WEEK_END_DAY = array( 'Sat', 'Sun' );
 
-    public function __construct( $file_name )
+    public function __construct( string $file_name)
     {
         // Constructor initialise output file name
         $this->file_name = $file_name;
     }
 
-    private function is_weekend( $date )
+    private function is_weekend(string $date):bool
     {
         // check date is weekend
      
@@ -26,7 +26,7 @@ class Sale
         return false;
     }
 
-    private function create_csv( $data )
+    private function create_csv(string $data)
     {
         // Create output file
      
