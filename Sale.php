@@ -9,18 +9,18 @@ class Sale
     private $file_name = NULL;
     const WEEK_END_DAY = array('Sat', 'Sun');
 
-    public function __construct($file_name='report.csv')
+    public function __construct( $file_name )
     {
         // Constructor initialise output file name
         $this->file_name = $file_name;
     }
 
-    private function is_weekend($date)
+    private function is_weekend( $date )
     {
         // check date is weekend
      
-        $day = date('D',strtotime($date));
-        if( in_array($day, WEEK_END_DAY ) ) {
+        $day = date( 'D', strtotime($date) );
+        if( in_array( $day, self::WEEK_END_DAY ) ) {
             return true;
         }
         return false;
@@ -48,33 +48,32 @@ class Sale
 
         for ($month ; $month <= 12 ; $month++ ) {
             $date = new DateTime("$year-$month-01");
-            $date->modify('last day of this month');
-            $salary_date = $date->format('Y-m-d');
+            $date->modify( 'last day of this month' );
+            $salary_date = $date->format( 'Y-m-d' );
 
-            if( self::is_weekend($salary_date)) {
-                $date->modify('last friday of this month');
-                $salary_date = $date->format('Y-m-d');
+            if( self::is_weekend( $salary_date )) {
+                $date->modify( 'last friday of this month' );
+                $salary_date = $date->format( 'Y-m-d' );
             }
 
-            $date = new DateTime("$year-$month-15");
-            $bonus_date = $date->format('Y-m-d');
+            $date = new DateTime( "$year-$month-15" );
+            $bonus_date = $date->format( 'Y-m-d' );
 
             if( self::is_weekend($bonus_date) ) {
-                $date->modify('next wednesday');
-                $bonus_date = $date->format('Y-m-d');
+                $date->modify( 'next wednesday' );
+                $bonus_date = $date->format( 'Y-m-d' );
             }
 
-            $month_name = $date->format('F');
-            $salary_bonus_date_of_month = array("$month_name","$salary_date","$bonus_date");
-            array_push($report_arr,$salary_bonus_date_of_month);
+            $month_name = $date->format( 'F' );
+            $salary_bonus_date_of_month = array( "$month_name", "$salary_date", "$bonus_date" );
+            array_push($report_arr, $salary_bonus_date_of_month);
 
         } // for loop for month
-        self::create_csv($report_arr);
+        self::create_csv( $report_arr );
     } // function generate_csv_report
 
 }//class
-
-$sale_obj = new Sale($argv[1]);
+$sale_obj = new Sale( $argv[1] );
 $sale_obj->generate_csv_report();
 
 ?>
