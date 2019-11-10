@@ -26,7 +26,7 @@ class Sale
         return false;
     }
 
-    private function create_csv(string $data)
+    private function create_csv(array $data)
     {
         // Create output file
      
