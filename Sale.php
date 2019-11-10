@@ -7,7 +7,7 @@
 class Sale
 {
     private $file_name = NULL;
-    const WEEK_END_DAY = array('Sat', 'Sun');
+    const WEEK_END_DAY = array( 'Sat', 'Sun' );
 
     public function __construct( $file_name )
     {
@@ -19,7 +19,7 @@ class Sale
     {
         // check date is weekend
      
-        $day = date( 'D', strtotime($date) );
+        $day = date( 'D', strtotime( $date ) );
         if( in_array( $day, self::WEEK_END_DAY ) ) {
             return true;
         }
@@ -30,8 +30,8 @@ class Sale
     {
         // Create output file
      
-        $file = fopen( "$this->file_name", "w" );
-        fputcsv( $file, array("Month Name", "Salary Date", "Bonus Date") );
+        $file = fopen( "$this->file_name", 'w' );
+        fputcsv( $file, array('Month Name', 'Salary Date', 'Bonus Date') );
         foreach( $data as $line ) {
             fputcsv($file, $line);
         }   
@@ -47,7 +47,7 @@ class Sale
         $report_arr = [];
 
         for ($month ; $month <= 12 ; $month++ ) {
-            $date = new DateTime("$year-$month-01");
+            $date = new DateTime( "$year-$month-01" );
             $date->modify( 'last day of this month' );
             $salary_date = $date->format( 'Y-m-d' );
 
