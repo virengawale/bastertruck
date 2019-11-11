@@ -1,10 +1,10 @@
 <?php
 /**
- *1. Take input file name
- *2. Sales Department Salary and bonus Date report
- *3. Salary processed last day of the month if last day is weekend then proccessed salery on last working day of the month
- *4. Bonus is calculated on 15th of the month for the previus month if 15th is weekend then processed bonus on wenesday after 15th
- *5. Create report for remaining year in .csv file( Format :  format month, salary date, bonus dates)
+* 1. Take input file name
+* 2. Sales Department Salary and bonus Date report
+* 3. Salary processed last day of the month if last day is weekend then proccessed salery on last working day of the month
+* 4. Bonus is calculated on 15th of the month for the previus month if 15th is weekend then processed bonus on wenesday after 15th
+* 5. Create report for remaining year in .csv file( Format :  format month, salary date, bonus dates)
 */
 
 class Sale
@@ -44,7 +44,7 @@ class Sale
     /**
     * Create csv format output file
     *
-    * @param array $data 
+    * @param array $data
     * @return create file in file system
     */
     private function create_csv(array $data)
@@ -68,10 +68,10 @@ class Sale
     public function generate_csv_report()
     {
         /**
-         * @param string $month
-         * @param string $year
-         * @param array $report_arr
-         */
+        * @param string $month
+        * @param string $year
+        * @param array $report_arr
+        */
         $month = date('m');
         $year = date('Y');
         $report_arr = [];
@@ -87,7 +87,7 @@ class Sale
                 $salary_date = $date->format('Y-m-d');
             }
 
-            // Initialize bonus date 
+            // Initialize bonus date
             $date = new DateTime("$year-$month-15");
             $bonus_date = $date->format('Y-m-d');
 
@@ -100,19 +100,19 @@ class Sale
             $salary_bonus_date_of_month = array( "$month_name", "$salary_date", "$bonus_date" );
             //Create array for output
             array_push($report_arr, $salary_bonus_date_of_month);
-        } 
+        }
         // Generate output file
         self::create_csv($report_arr);
-    } 
-} 
+    }
+}
 
 $file_name = $argv[1];
 /**
- * Create oobject of sale class
- *
- * @param string $file_name
- * @return object
- */
+* Create oobject of sale class
+*
+* @param string $file_name
+* @return object
+*/
 
 $sale_obj = new Sale($file_name);
 $sale_obj->generate_csv_report();
